@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public interface CuentaService {
     Cuenta findById(Long id);
 
-    int revisarTotalTranferenccias(Long bancoId);
+    int revisarTotalTranferencias(Long bancoId);
 
     BigDecimal revisarSaldo(Long cuentaId);
 
