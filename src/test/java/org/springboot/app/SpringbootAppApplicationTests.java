@@ -1,7 +1,6 @@
 package org.springboot.app;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springboot.app.Datos.*;
 
@@ -31,9 +30,9 @@ class SpringbootAppApplicationTests {
         cuentaRepositorio = mock(CuentaRepositorio.class);
         bancoRepositorio = mock(BancoRepositorio.class);
         service = new CuentaServiceImpl(cuentaRepositorio, bancoRepositorio);
-       // Datos.CUENTA_001.setSaldo(new BigDecimal("1000"));
-       // Datos.CUENTA_002.setSaldo(new BigDecimal("2000"));
-       // Datos.BANCO.setTotalTranferencia(0);
+        // Datos.CUENTA_001.setSaldo(new BigDecimal("1000"));
+        // Datos.CUENTA_002.setSaldo(new BigDecimal("2000"));
+        // Datos.BANCO.setTotalTranferencia(0);
     }
 
     @Test
@@ -60,9 +59,11 @@ class SpringbootAppApplicationTests {
         verify(cuentaRepositorio, times(3)).findById(1L);
         verify(cuentaRepositorio, times(3)).findById(2L);
         verify(cuentaRepositorio, times(2)).update(any(Cuenta.class));
-
         verify(bancoRepositorio, times(2)).findById(1L);
         verify(bancoRepositorio).update(any(Banco.class));
+
+        verify(cuentaRepositorio, times(6)).findById(anyLong());
+        verify(cuentaRepositorio, never()).findAll();
 
     }
 
@@ -94,10 +95,22 @@ class SpringbootAppApplicationTests {
         verify(cuentaRepositorio, times(3)).findById(1L);
         verify(cuentaRepositorio, times(2)).findById(2L);
         verify(cuentaRepositorio, never()).update(any(Cuenta.class));
-
         verify(bancoRepositorio, times(1)).findById(1L);
         verify(bancoRepositorio, never()).update(any(Banco.class));
-
+        verify(cuentaRepositorio, times(5)).findById(anyLong());
+        verify(cuentaRepositorio, never()).findAll();
     }
 
+    @Test
+    void contextLoad3() {
+        when(cuentaRepositorio.findById(1L)).thenReturn(crearCuenta001());
+        Cuenta cuenta1 = service.findById(1L);
+        Cuenta cuenta2 = service.findById(1L);
+
+        assertSame(cuenta1, cuenta2);
+        assertEquals("Cristian", cuenta1.getPersona());
+        assertEquals("Cristian", cuenta2.getPersona());
+
+        verify(cuentaRepositorio, times(2)).findById(1L);
+    }
 }
