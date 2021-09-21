@@ -4,10 +4,13 @@ import org.springboot.app.models.Banco;
 import org.springboot.app.models.Cuenta;
 import org.springboot.app.repositories.BancoRepositorio;
 import org.springboot.app.repositories.CuentaRepositorio;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Service
 public class CuentaServiceImpl implements CuentaService {
+
     private CuentaRepositorio cuentaRepositorio;
     private BancoRepositorio bancoRepositorio;
 

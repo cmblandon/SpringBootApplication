@@ -12,24 +12,27 @@ import org.springboot.app.models.Cuenta;
 import org.springboot.app.repositories.BancoRepositorio;
 import org.springboot.app.repositories.CuentaRepositorio;
 import org.springboot.app.services.CuentaService;
-import org.springboot.app.services.CuentaServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
 
 @SpringBootTest
 class SpringbootAppApplicationTests {
 
+    @MockBean
     CuentaRepositorio cuentaRepositorio;
+    @MockBean
     BancoRepositorio bancoRepositorio;
-
+    @Autowired
     CuentaService service;
 
     @BeforeEach
     void setUp() {
-        cuentaRepositorio = mock(CuentaRepositorio.class);
-        bancoRepositorio = mock(BancoRepositorio.class);
-        service = new CuentaServiceImpl(cuentaRepositorio, bancoRepositorio);
+        //cuentaRepositorio = mock(CuentaRepositorio.class);
+        //bancoRepositorio = mock(BancoRepositorio.class);
+        //service = new CuentaServiceImpl(cuentaRepositorio, bancoRepositorio);
         // Datos.CUENTA_001.setSaldo(new BigDecimal("1000"));
         // Datos.CUENTA_002.setSaldo(new BigDecimal("2000"));
         // Datos.BANCO.setTotalTranferencia(0);
