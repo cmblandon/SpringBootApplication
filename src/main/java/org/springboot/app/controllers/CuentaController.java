@@ -5,7 +5,6 @@ import org.springboot.app.models.TransaccionDTO;
 import org.springboot.app.services.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,7 +13,7 @@ import java.util.Map;
 
 import static org.springframework.http.HttpStatus.OK;
 
-@Controller
+@RestController
 @RequestMapping("/api/cuentas")
 public class CuentaController {
     @Autowired
